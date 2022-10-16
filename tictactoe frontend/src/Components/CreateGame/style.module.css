@@ -1,0 +1,16 @@
+.createGameForm{
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* .label{
+    font-size: large;
+}
+.gameInput{
+    padding: 5px;
+    width: 120px;
+    height: 30px;
+    border: 2px solid black;
+    border-radius: 5px;
+} */

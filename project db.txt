@@ -1,0 +1,22 @@
+Tic Tac Toe project
+
+
+
+Tables
+
+User
+
+Fields-
+  UserId: unique id
+  Username: String
+  Email : String
+  Password : String
+
+
+Game-
+  GameId : uniqueId
+  CreatedBy : UserId (references user)          or Player1 : UserId
+  OtherPlayer : UserId (references user)        or Player2 : UserId
+  NumberOfRound : integer
+  Rounds : []               //to store the winner of each round 
+  Winner : UserId (references users)    

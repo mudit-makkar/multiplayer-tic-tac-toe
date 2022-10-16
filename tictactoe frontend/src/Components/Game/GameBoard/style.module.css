@@ -1,0 +1,6 @@
+.board{
+    width: 25%;
+    display: grid;
+    grid-template-columns: auto auto auto ;
+    margin-top:100px;
+}

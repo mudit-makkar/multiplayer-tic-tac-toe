@@ -1,0 +1,126 @@
+import { useEffect, useState } from "react";
+import Square from "../Square/Square";
+import styles from "./style.module.css";
+
+
+export default function Board()
+{
+    const [squares,setSquares]=useState(Array(9).fill());
+    const [isXNext,setIsXNext]=useState(true);
+    const [winner,setWinner]=useState(null);
+    const [places_filled,setPlacesFilled]=useState(0);
+
+    const winning_indices=[
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ]
+    useEffect(function()
+    {
+        for(let i=0;i<winning_indices.length;i++)
+        {
+            const [a,b,c]=winning_indices[i];
+            if(squares[a] && squares[a]==squares[b] && squares[b]==squares[c])
+            {
+                setWinner(squares[a]);
+                break;
+            }
+        }
+    },[squares]);
+
+    function handleClick(i)
+    {
+        if(squares[i]==null && winner==null)
+        {
+            const new_squares=squares.slice();
+            new_squares[i]=isXNext?"X":"O";
+            setSquares(new_squares);
+            setIsXNext(!isXNext);
+            setPlacesFilled(places_filled+1);
+        }
+        return;
+    }
+
+    function renderSquare(i)
+    {
+        return <Square value={squares[i]} onClick={()=>{handleClick(i)}} />
+    }
+
+ 
+    let jsx=squares.map(function(data,i)
+    {
+        return renderSquare(i);
+    });
+
+    function status()
+    {
+        if(places_filled==9 && winner==null)
+        {
+            return <>
+            Match Drawn
+            </>
+        }
+        else
+        {
+            return (<>
+            Winner - {winner} <br/>
+            Turn - {isXNext ? "X" : "O"}
+            </>)
+        }
+    }
+    return (
+        <>
+        <div className={styles.game}>
+           <div className={styles.board}>
+               {jsx}
+            </div>
+            <p style={{color:"white",fontSize:"x-large",fontWeight:"bold",padding:"10px",textAlign:"center"}}>
+
+                {status()}
+
+            </p>
+
+        </div>
+        </>
+    )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import styles from "./style.module.css";
+export default function Square(props)
+{
+    return(
+    <>
+    <button onClick={props.onClick} className={styles.square} disabled={props.disable_button}>
+        {props.value}
+    </button>
+    </>
+    )
+}
